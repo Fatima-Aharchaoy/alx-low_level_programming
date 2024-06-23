@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ -z "$CFILE" ]; then
+    echo "Error: CFILE variable is not set or empty."
+    exit 1
+fi
+
+BASENAME=$(basename "$CFILE" .c)
+OUTPUT_FILE="${BASENAME}.s"
+
+gcc -S -o "$OUTPUT_FILE" "$CFILE"
+
+if [ -f "$OUTPUT_FILE" ]; then
+    echo "Assembly code generated successfully: $OUTPUT_FILE"
+else
+    echo "Error: Failed to generate assembly code."
+    exit 1
+fi
